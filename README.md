@@ -1,2 +1,3 @@
 # cts2search
-Java Library to search CTS2 Repositories for Terminology Binding.
+Java Library to work with OMG CTS2 Compliant REST Services implementations.
+
