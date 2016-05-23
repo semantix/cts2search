@@ -1,0 +1,16 @@
+package edu.mayo.bsi.cts.cts2connector.cts2search.aux;
+
+public enum SearchableEntity 
+{
+	VARIABLE,
+	STUDY,
+	DICTIONARY,
+	DATA_ELEMENT,
+	DATA_ELEMENT_CONCEPT,
+	CONCEPT,
+	VALUE_SET,
+	VALUE_SET_INFORMATION,
+	VALUE_SET_MEMBER,
+	CODE_SYSTEM,
+	CODE_SYSTEM_DEFINITION
+}
