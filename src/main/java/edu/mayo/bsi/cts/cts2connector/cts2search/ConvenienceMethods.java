@@ -65,38 +65,37 @@ public class ConvenienceMethods
 		return ConvenienceMethods.propertyFileLocation_;
 	}
 
-	public void setPropertyFileLocation(String propertyFileLocation) throws Exception
+	public void setPropertyFileLocation(String propFileLocation) throws Exception
 	{
-		if (CTS2Utils.isNull(propertyFileLocation))
-		{
-			logger.log(Level.SEVERE, "No Property file found at the given location \"" + propertyFileLocation + "\" !! Using Default property file:" + this.propertyFileLocation_);
+		ConvenienceMethods.propertyFileLocation_ = propFileLocation;
+
+		if (CTS2Utils.isNull(getPropertyFileLocation())) {
+			logger.log(Level.SEVERE, "No Property file found at the given location \"" + propFileLocation + "\" !! Using Default property file:" + this.propertyFileLocation_);
 		}
-		else
-			this.propertyFileLocation_ = propertyFileLocation;
 		
 		this.profiles.clear();
 		Properties props = null;
 
-		String path = System.getProperty("user.dir") + "/" + this.propertyFileLocation_;
+		String path = System.getProperty("user.dir") + "/" + getPropertyFileLocation();
 		props = loadCTS2ConfigurationProperties(path);
 
 		// Assuming that property file location is absolute - Trying again
 		if (props == null)
 		{
-			path = this.propertyFileLocation_;
+			path = getPropertyFileLocation();
 			props = loadCTS2ConfigurationProperties(path);
 		}
 
 		if (props == null)
 		{
-			String msg = "May be difficulties in reading property file:\"" + this.propertyFileLocation_ + "\" not found.\n" +
+			String msg = "May be difficulties in reading property file:\"" + getPropertyFileLocation() + "\" not found.\n" +
 					"Should be either absolute path or relative wrt directory \"" + System.getProperty("user.dir") + "\"\n";
 			msg += "Searched wrt '" + this.getClass().getPackage().getName() + "'";
-			this.logger.log(Level.WARNING, msg);
+			this.logger.log(Level.SEVERE, msg);
 			return;
 		}
 
-		this.logger.log(Level.WARNING, "Configuration File '" + path + "' loaded successfully!");
+		this.logger.log(Level.SEVERE, "Configuration File '" + path + "' loaded successfully!");
 
 		String profileNames = props.getProperty(PROFILES_PROPERTY);
 		
@@ -127,10 +126,11 @@ public class ConvenienceMethods
 
 	private Properties loadCTS2ConfigurationProperties(String path)
 	{
+		this.logger.log(Level.SEVERE, "Trying to load from " + path);
 		Properties cts2props = null;
 		try
 		{
-			if (this.propertyFileLocation_ != null)
+			if (path != null)
 			{
 				InputStream inputStream = new FileInputStream(path);
 				cts2props = new Properties();
@@ -140,7 +140,7 @@ public class ConvenienceMethods
 		catch(Exception e)
 		{
 			String msg = "Could not find property file at : \'" + path + "'";
-			this.logger.log(Level.WARNING, msg);
+			this.logger.log(Level.SEVERE, msg);
 		}
 
 		return cts2props;

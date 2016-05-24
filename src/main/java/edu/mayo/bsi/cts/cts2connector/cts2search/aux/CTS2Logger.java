@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class CTS2Logger 
 {
-	public Level currentLogLevel_ = Level.SEVERE;
+	public Level currentLogLevel_ = Level.WARNING;
 	Logger logger = Logger.getLogger("cts2logger");
 
 	public CTS2Logger()	{	}
