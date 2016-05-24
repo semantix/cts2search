@@ -76,27 +76,28 @@ public class ConvenienceMethods
 		
 		this.profiles.clear();
 		Properties props = null;
-		try
+
+		String path = System.getProperty("user.dir") + "/" + this.propertyFileLocation_;
+		props = loadCTS2ConfigurationProperties(path);
+
+		// Assuming that property file location is absolute - Trying again
+		if (props == null)
 		{
-			if (this.propertyFileLocation_ != null)
-			{
-				String dir = System.getProperty("user.dir");
-				InputStream inputStream = new FileInputStream(dir + "/resources/" + this.propertyFileLocation_);
-				props = new Properties();
-				props.load(inputStream);
-			}
-		}
-		catch(Exception e)
-		{
-			String msg = "May be difficulties in reading property file:\"" + this.propertyFileLocation_ + "\" not found.\n" +
-	                 "Should be in directory \"" + System.getProperty("user.dir") + "\"\n";
-			msg += "Looking for " + this.getClass().getPackage().getName();
-			this.logger.log(Level.WARNING, msg);
+			path = this.propertyFileLocation_;
+			props = loadCTS2ConfigurationProperties(path);
 		}
 
 		if (props == null)
+		{
+			String msg = "May be difficulties in reading property file:\"" + this.propertyFileLocation_ + "\" not found.\n" +
+					"Should be either absolute path or relative wrt directory \"" + System.getProperty("user.dir") + "\"\n";
+			msg += "Searched wrt '" + this.getClass().getPackage().getName() + "'";
+			this.logger.log(Level.WARNING, msg);
 			return;
-		
+		}
+
+		this.logger.log(Level.WARNING, "Configuration File '" + path + "' loaded successfully!");
+
 		String profileNames = props.getProperty(PROFILES_PROPERTY);
 		
 		if (CTS2Utils.isNull(profileNames))
@@ -122,6 +123,27 @@ public class ConvenienceMethods
 			if (pkeys.size() > 0)
 				defaultProfile_ = pkeys.iterator().next();
 		}
+	}
+
+	private Properties loadCTS2ConfigurationProperties(String path)
+	{
+		Properties cts2props = null;
+		try
+		{
+			if (this.propertyFileLocation_ != null)
+			{
+				InputStream inputStream = new FileInputStream(path);
+				cts2props = new Properties();
+				cts2props.load(inputStream);
+			}
+		}
+		catch(Exception e)
+		{
+			String msg = "Could not find property file at : \'" + path + "'";
+			this.logger.log(Level.WARNING, msg);
+		}
+
+		return cts2props;
 	}
 
 	public String getDefaultProfileName()
