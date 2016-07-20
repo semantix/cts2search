@@ -158,8 +158,14 @@ public class CTS2Repository extends RESTRepositoryImpl
 		}
 		
 		// if format is JSON then add otherwise to default xml format
-		String urlStr = makeUrlPrefix() + this.serviceURLSuffix;
-		
+		String urlStr = this.baseURL;
+
+		if (CTS2Utils.isNull(urlStr))
+			urlStr = makeUrlPrefix() + this.serviceURLSuffix;
+
+		if (!urlStr.endsWith("/"))
+			urlStr += "/";
+
 		if (this.query_.getSearchContext().outputFormat == ServiceResultFormat.JSON)
 		{
 			urlParams[paramIndex] = "format";

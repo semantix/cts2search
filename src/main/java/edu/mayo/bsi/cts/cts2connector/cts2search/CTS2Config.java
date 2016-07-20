@@ -15,6 +15,7 @@ public class CTS2Config
 	public static String SERVICE_ISSECURE = "isSecure";
 	public static String SERVICE_HOST = "hostName";
 	public static String SERVICE_PORT = "port";
+	public static String SERVICE_BASEURL = "baseURL"; // this includes serviceURLSuffix
 	public static String SERVICE_SERVICEURLSUFFIX = "serviceUrlSuffix";
 	public static String LOGIN_USER = "userName";
 	public static String LOGIN_PSWD = "password";
@@ -36,6 +37,7 @@ public class CTS2Config
 	public String port = null;
 	public boolean secure = false;
 	public String serviceUrlSuffix = null;
+	public String baseURL = null;
 	public String userName = null;
 	public String password = null;
 	
@@ -86,6 +88,7 @@ public class CTS2Config
 			definedPropertyKeys.add(getPropertyName(CTS2Config.SERVICE_ISSECURE));
 			definedPropertyKeys.add(getPropertyName(CTS2Config.SERVICE_HOST));
 			definedPropertyKeys.add(getPropertyName(CTS2Config.SERVICE_PORT));
+			definedPropertyKeys.add(getPropertyName(CTS2Config.SERVICE_BASEURL));
 			definedPropertyKeys.add(getPropertyName(CTS2Config.SERVICE_SERVICEURLSUFFIX));
 			definedPropertyKeys.add(getPropertyName(CTS2Config.LOGIN_USER));
 			definedPropertyKeys.add(getPropertyName(CTS2Config.LOGIN_PSWD));
@@ -201,6 +204,11 @@ public class CTS2Config
 		}
 		
 		value = null;
+
+		value = props.getProperty(getPropertyName(CTS2Config.SERVICE_BASEURL));
+		if (!CTS2Utils.isNull(value))
+			this.baseURL = value;
+
 		value = props.getProperty(getPropertyName(CTS2Config.SERVICE_SERVICEURLSUFFIX));
 		if (!CTS2Utils.isNull(value))
 			this.serviceUrlSuffix = value;

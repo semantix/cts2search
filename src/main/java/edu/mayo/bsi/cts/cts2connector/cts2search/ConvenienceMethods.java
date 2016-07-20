@@ -124,6 +124,41 @@ public class ConvenienceMethods
 		}
 	}
 
+	public void addUpdateRESTContext(String name, RESTContext ctx)
+	{
+		if (CTS2Utils.isNull(name))
+			return;
+
+		if (ctx == null)
+			return;
+
+		this.profiles.put(name, ctx);
+	}
+
+	public void addUpdateRESTBaseServiceURL(String name, String url)
+	{
+		if (CTS2Utils.isNull(name))
+			return;
+
+		RESTContext ctx = null;
+		try {
+			ctx = getContext(name);
+		}
+		catch(Exception e){
+			// Some error in finding the profile
+			logger.log(Level.WARNING, "Could not find CTS2 Profile '" + name + "', creating a new one with URL '" + url + "'");
+		}
+
+		if (ctx == null)
+		{
+			ctx = new RESTContext(this.logger);
+			ctx.baseURL = url;
+		}
+
+		this.profiles.put(name, ctx);
+	}
+
+
 	private Properties loadCTS2ConfigurationProperties(String path)
 	{
 		this.logger.log(Level.SEVERE, "Trying to load from " + path);

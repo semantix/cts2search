@@ -1,12 +1,12 @@
 package edu.mayo.bsi.cts.cts2connector.cts2search;
 
-import java.io.InputStream;
-import java.net.URL;
-
 import edu.mayo.bsi.cts.cts2connector.cts2search.aux.CTS2Utils;
 import edu.mayo.bsi.cts.cts2connector.cts2search.aux.RESTClient;
 import edu.mayo.bsi.cts.cts2connector.cts2search.aux.RESTRequestMethod;
 import edu.mayo.bsi.cts.cts2connector.cts2search.aux.SearchException;
+
+import java.io.InputStream;
+import java.net.URL;
 
 
 public abstract class RESTRepository extends SearchRepository
@@ -19,6 +19,7 @@ public abstract class RESTRepository extends SearchRepository
 	public String hostName = null;
 	public String port = null;
 	//public boolean secure = false;
+	public String baseURL = null;
 	public String serviceURLSuffix = null;
 	
 	public String userName = null;

@@ -62,6 +62,9 @@ public class CTS2SearchQuery extends RESTSearchQuery
 
 		if (!CTS2Utils.isNull(ctx.serviceUrlSuffix))
 			repo.serviceURLSuffix = ctx.serviceUrlSuffix;
+
+		if (!CTS2Utils.isNull(ctx.baseURL))
+			repo.baseURL = ctx.baseURL;
 	}
 
 	public Object search() throws SearchException 

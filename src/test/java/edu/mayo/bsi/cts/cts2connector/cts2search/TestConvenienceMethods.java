@@ -64,15 +64,36 @@ public class TestConvenienceMethods
 		}
 		fail();
 	}
-	
+
 	@Test
 	public void testGetMatchingVocabularies()
 	{
 		System.out.println("TESTING... testGetMatchingVocabularies");
-		
+
 		try
 		{
 			String selectedVocabs = cm.getMatchingVocabularies("SNO", serviceContext);
+			assertNotNull(selectedVocabs);
+			printFewLines(selectedVocabs, 500);
+			return;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		fail();
+	}
+
+	@Test
+	public void testGetMatchingWithSwitchContextOfBaseURL()
+	{
+		System.out.println("TESTING... testGetMatchingWithSwitchContextOfBaseURL");
+		
+		try
+		{
+			cm.addUpdateRESTBaseServiceURL("myOwnCTS2Service", "http://informatics.mayo.edu/py4cts2/");
+			RESTContext myCtx = cm.getContext("myOwnCTS2Service");
+			String selectedVocabs = cm.getMatchingVocabularies("SNO", myCtx);
 			assertNotNull(selectedVocabs);
 			printFewLines(selectedVocabs, 500);
 			return;
