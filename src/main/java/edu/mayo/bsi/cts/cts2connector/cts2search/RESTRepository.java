@@ -27,18 +27,16 @@ public abstract class RESTRepository extends SearchRepository
 	
 	public Object inputObject = null;
 	
-	protected String getProtocol()
+	protected String getProtocol(boolean secure)
 	{
-		// ((this.query_.getSearchContext().secure)?"https://":"http://");
-		
-		return "http://";
+		return (secure)?"https://":"http://";
 	}
 	
-	public String makeUrlPrefix()
+	public String makeUrlPrefix(boolean secure)
 	{
 		String hn = (CTS2Utils.isNull(hostName))?defaultHost:hostName;
 		String pt = (!CTS2Utils.isNull(port))?(portSeparator + port):"";
-		return getProtocol() + hn + pt;
+		return getProtocol(secure) + hn + pt;
 	}
 	
 	public RESTRepository(SearchQuery query)

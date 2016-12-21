@@ -10,9 +10,6 @@ import java.util.Vector;
 
 public class CTS2Repository extends RESTRepositoryImpl 
 {
-	//private String codeSystemName = "SNOMEDCT";
-	//private String codeSystemVersion = "SNOMEDCT_2011_01_31_UMLS-RELA";
-	
 	private String restPrefixForSearch = "/cts2/rest/";
 	
 	public CTS2Repository(SearchQuery query)
@@ -161,7 +158,7 @@ public class CTS2Repository extends RESTRepositoryImpl
 		String urlStr = this.baseURL;
 
 		if (CTS2Utils.isNull(urlStr))
-			urlStr = makeUrlPrefix() + this.serviceURLSuffix;
+			urlStr = makeUrlPrefix(rsc.secure) + this.serviceURLSuffix;
 
 		if (!urlStr.endsWith("/"))
 			urlStr += "/";
@@ -179,7 +176,7 @@ public class CTS2Repository extends RESTRepositoryImpl
 		switch(currentSearchableEntityType)
 		{
 			case CODE_SYSTEM:	
-				temp = "codesystems";		
+				temp = "codesystemversions";
 				break;
 			
 			case CODE_SYSTEM_DEFINITION:

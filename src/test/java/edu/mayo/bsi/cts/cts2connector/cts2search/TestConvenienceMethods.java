@@ -3,6 +3,7 @@ package edu.mayo.bsi.cts.cts2connector.cts2search;
 import edu.mayo.bsi.cts.cts2connector.cts2search.aux.*;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -10,7 +11,7 @@ import static org.junit.Assert.fail;
 
 public class TestConvenienceMethods
 {
-	private String serviceName = "PY4CTS2";
+	private String serviceName = "NCILEXEVS63CTS2";
 	private ServiceResultFormat format = ServiceResultFormat.JSON;
 	private ConvenienceMethods cm = null;
 	private RESTContext serviceContext = null;
@@ -84,7 +85,7 @@ public class TestConvenienceMethods
 		fail();
 	}
 
-	@Test
+	@Ignore
 	public void testGetMatchingWithSwitchContextOfBaseURL()
 	{
 		System.out.println("TESTING... testGetMatchingWithSwitchContextOfBaseURL");
@@ -130,8 +131,8 @@ public class TestConvenienceMethods
 	private String getMatchingEntities(String phrase, MatchAlgorithm matchAlgorithm) throws SearchException
 	{
 			VocabularyId csv = new VocabularyId();
-			csv.name = "SNOMED_CT";
-			csv.version = "20150131";
+			csv.name = "NCI_Thesaurus";
+			csv.version = "16.09d";
 			serviceContext.addSearchEntity(SearchableEntity.CONCEPT, true);
 			serviceContext.matchAlgorithm_ = matchAlgorithm;
 			return cm.getVocabularyEntities(phrase, csv, serviceContext);
